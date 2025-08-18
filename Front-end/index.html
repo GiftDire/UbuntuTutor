@@ -1,25 +1,135 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Belgium Campus DataDex – Innovative Management Tutor</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UbuntuTutor — Innovation Management TA</title>
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind theme: red/black/blue
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            baseblk: "#0b0c10",
+            brandred: "#ef4444",   // red-500
+            brandblue: "#3b82f6"   // blue-500
+          },
+          boxShadow: {
+            card: "0 8px 30px rgba(0,0,0,.25)"
+          },
+          keyframes: {
+            pulseDots: {
+              "0%, 80%, 100%": { opacity: "0" },
+              "40%": { opacity: "1" }
+            }
+          },
+          animation: {
+            dots: "pulseDots 1.4s infinite ease-in-out"
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* subtle radial glow behind the app */
+    .radial {
+      background:
+        radial-gradient(800px 400px at 20% 0%, rgba(59,130,246,.25), transparent 60%),
+        radial-gradient(800px 400px at 80% 10%, rgba(239,68,68,.22), transparent 60%),
+        linear-gradient(to bottom, #000000, #0b0c10 50%, #0b1220);
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, #ef4444 0%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  </style>
 </head>
 
-<body>
-  <div class="wrapper">
-    <header>Belgium Campus DataDex 🤖 | Ask anything about Innovative Management</header>
+<body class="min-h-screen radial text-slate-100">
+  <main class="max-w-3xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="mb-6">
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight gradient-text">UbuntuTutor</h1>
+      <p class="mt-1 text-slate-300">Ask anything about <span class="font-semibold">Innovation Management</span>.</p>
+    </header>
 
-    <main id="chat"></main>
+    <!-- Example chips -->
+    <div class="flex flex-wrap gap-2 mb-4">
+      <button class="ex chip">Explain the Stage-Gate process</button>
+      <button class="ex chip">Difference between incremental and radical innovation</button>
+      <button class="ex chip">Give a mini Business Model Canvas</button>
+      <button class="ex chip">Example of disruptive innovation</button>
+    </div>
 
-    <form id="askForm" autocomplete="off">
-      <textarea id="q" rows="2"
-        placeholder="Type your question … (Shift+Enter = newline)"></textarea>
-      <button id="sendBtn" type="submit">Send</button>
+    <!-- Chat log -->
+    <section id="log" class="grid gap-3 mb-4" aria-live="polite"></section>
+
+    <!-- Composer -->
+    <form id="ask-form" class="sticky bottom-4 backdrop-blur supports-[backdrop-filter]:bg-black/20 rounded-2xl shadow-card border border-white/10 p-3">
+      <div class="flex items-end gap-3">
+        <label for="question" class="sr-only">Your question</label>
+        <textarea id="question" rows="2" placeholder="Type your question… (Ctrl/Cmd + Enter to send)"
+          class="flex-1 resize-y rounded-xl bg-black/40 border border-white/10 focus:border-brandblue focus:ring-2 focus:ring-brandblue/40 outline-none px-4 py-3 text-slate-100 placeholder:text-slate-400"></textarea>
+
+        <button type="submit" id="ask-btn"
+          class="shrink-0 inline-flex items-center gap-2 rounded-xl px-4 py-3 font-semibold
+                 bg-brandred hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2
+                 focus-visible:ring-brandred/50 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4l16 8-16 8 4-8-4-8z" />
+          </svg>
+          Ask
+        </button>
+      </div>
+
+      <div class="mt-2 flex items-center justify-between text-xs text-slate-400">
+        <div>Model: <span id="model-tag" class="text-slate-200">Gemini</span></div>
+        <div class="flex gap-3">
+          <button type="button" id="clear-btn" class="underline decoration-dotted hover:text-slate-200">Clear chat</button>
+          <a href="#" class="hover:text-slate-200" id="health-link">Check API</a>
+        </div>
+      </div>
     </form>
-  </div>
 
-  <script src="scripts.js"></script>
+    <footer class="mt-6 text-[12px] text-slate-400">
+      <p>Tip: press <kbd class="px-1 py-0.5 rounded bg-black/50 border border-white/10">Ctrl/Cmd + Enter</kbd> to send. Answers are kept concise and focused on Innovation Management.</p>
+    </footer>
+  </main>
+
+  <!-- Small component templates -->
+  <template id="card-tpl">
+    <article class="rounded-2xl border border-white/10 bg-black/30 shadow-card p-4">
+      <p class="font-semibold text-slate-200 mb-1">You</p>
+      <p class="q whitespace-pre-wrap text-slate-100"></p>
+      <hr class="my-3 border-white/10">
+      <div class="flex items-center justify-between mb-1">
+        <p class="font-semibold text-slate-200">UbuntuTutor</p>
+        <button class="copy inline-flex items-center gap-1 text-xs text-brandblue hover:underline">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2V7z"/><path d="M6 9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h8" /></svg>
+          Copy
+        </button>
+      </div>
+      <p class="a whitespace-pre-wrap text-slate-100"></p>
+    </article>
+  </template>
+
+  <template id="loading-tpl">
+    <article class="rounded-2xl border border-white/10 bg-black/30 shadow-card p-4">
+      <p class="font-semibold text-slate-200">UbuntuTutor</p>
+      <p class="mt-1 text-slate-300">
+        Thinking<span class="inline-block w-1 animate-dots">.</span>
+        <span class="inline-block w-1 animate-dots [animation-delay:.2s]">.</span>
+        <span class="inline-block w-1 animate-dots [animation-delay:.4s]">.</span>
+      </p>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
 </body>
 </html>
