@@ -54,7 +54,11 @@ Built with **Google AI Studio (Gemini)** + **Node/Express** + **Tailwind**.
 
 ---
 
-## 📂 Project Structure
+## 📂 Project look
+<img width="1911" height="905" alt="image" src="https://github.com/user-attachments/assets/6f15427e-75b0-4e57-ab85-3258b32c6351" />
+<img width="1894" height="916" alt="image" src="https://github.com/user-attachments/assets/879efa0a-a436-4684-b612-06f5299a370e" />
+<img width="1065" height="381" alt="image" src="https://github.com/user-attachments/assets/f5fb4232-d470-410f-9767-4aa46432be5b" />
+<img width="1288" height="430" alt="image" src="https://github.com/user-attachments/assets/f4948f5c-c5e2-473a-9f54-f22b8f664d33" />
 
-> Your repo currently looks like this (good for an MVP):
+
 
