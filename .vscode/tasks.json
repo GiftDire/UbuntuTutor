@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "backend: npm install",
+      "type": "npm",
+      "script": "install",
+      "path": "backend",
+      "problemMatcher": []
+    },
+    {
+      "label": "backend: dev",
+      "type": "npm",
+      "script": "dev",
+      "path": "backend",
+      "problemMatcher": [],
+      "detail": "Runs nodemon for the API server"
+    }
+  ]
+}

@@ -9,7 +9,7 @@ function getModel() {
   return genAI.getGenerativeModel({
     model: modelName,
     generationConfig: {
-      temperature: 0.6,    // balanced + consistent
+      temperature: 0.6,   
       topK: 40,
       topP: 0.95,
       maxOutputTokens: 512

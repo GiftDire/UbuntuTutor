@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backend: Launch (node)",
+      "type": "pwa-node",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/index.js",
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/backend/.env",
+      "console": "integratedTerminal",
+      "runtimeArgs": ["--enable-source-maps"]
+    },
+    {
+      "name": "Backend: Launch with nodemon",
+      "type": "pwa-node",
+      "request": "launch",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/backend/index.js",
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/backend/.env",
+      "restart": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}

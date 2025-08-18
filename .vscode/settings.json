@@ -1,0 +1,17 @@
+{
+  // formatting & linting
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "files.trimTrailingWhitespace": true,
+
+  "files.exclude": {
+    "**/node_modules": true
+  },
+
+  // default formatter
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Live Server (so the frontend opens at the right root)
+  "liveServer.settings.root": "/frontend",
+  "liveServer.settings.port": 5500
+}

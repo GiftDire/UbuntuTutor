@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "ms-vscode.vscode-node-azure-pack",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "ritwickdey.liveserver",
+    "humao.rest-client"
+  ]
+}

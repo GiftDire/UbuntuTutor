@@ -6,7 +6,7 @@ import askRouter from './routes/ask.js';
 
 const app = express();
 
-// json body & basic CORS
+
 app.use(express.json({ limit: '1mb' }));
 app.use(cors({ origin: process.env.ALLOWED_ORIGIN?.split(',') ?? '*' }));
 
